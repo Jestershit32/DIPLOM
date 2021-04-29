@@ -23,12 +23,13 @@ $doc_name = filter_var(trim($_POST['doc_name']),FILTER_SANITIZE_STRING);
 $group_num=filter_var(trim($_POST['group_num']),FILTER_SANITIZE_STRING);
 $doc_num=filter_var(trim($_POST['doc_num']),FILTER_SANITIZE_STRING);
 $description=preg_split('/\\r\\n?|\\n/',$_POST['description']);
+
 $uploaddir='db/';
+$autor_public=$_POST['autor_public'];
 $_FILES['file']['name']= date("d.m.y - H.i.s"). " " . $_FILES['file']['name'];
 $_FILES = str_replace(" ", '', $_FILES);
 $uploadfile =  $uploaddir . basename($_FILES['file']['name']);
 // это временная переменная
-$autor_public=$_SESSION["user_name"];
 $warning=["Внимание","Вы изменили запись под названием",false];
 
 $result= $mysql -> query(" SELECT * FROM `manuals`
@@ -70,9 +71,7 @@ SET `autor`='$aut_name',
 ");
         if (move_uploaded_file($_FILES['file']['tmp_name'], $uploadfile)) {
             unlink($post_id['file']);
-            // echo "Файл корректен и был успешно загружен.\n";
         } else {
-            // echo "Возможная атака с помощью файловой загрузки!\n";
         }
 }
 ?>
@@ -89,7 +88,7 @@ SET `autor`='$aut_name',
             </p>
             <div class="button-warning-menu">
                     <button style="<?PHP if($warning[2]){
-                         echo "display:none;";}; ?>" onclick="location.href='index.php';" class="post-button-menu-items button-warning-menu-item"><img class="icon-post-menu-button" src="img/svg/trash.svg" alt="">Ок</button>
+                        echo "display:none;";}; ?>" onclick="location.href='index.php';" class="post-button-menu-items button-warning-menu-item"><img class="icon-post-menu-button" src="img/svg/trash.svg" alt="">Ок</button>
                 
                 <button onclick="history.go(-1);" class="post-button-menu-items button-warning-menu-item"><img class="icon-post-menu-button" src="img/svg/update.svg" alt="">Вернуться</button>
             </div>

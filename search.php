@@ -31,11 +31,6 @@ session_start();
                 <input type="text" name="autor" class="input-search"placeholder="Введите имя автора">
                 <input type="text" style="display:none;" name="window" value="1">
                 <input type="text" style="display:none;" name="num_rows" value="5">
-                <!-- В будущем -->
-                <!-- <div class="div-input-checkbox">
-                    <input type="checkbox" name="" class="input-checkbox" id="">
-                    <h4 class="checkbox-name-h4">Профессия не обучается в колледже</h4>
-                </div> -->
                 <button type="submit" class="my-button">Поиск</button>
                 <button type="reset" class="my-button" >Сброс</button>
             </form>

@@ -19,8 +19,16 @@ session_start();
         $result_post= $mysql -> query(" SELECT * FROM `manuals`
         WHERE `id` = '$post'
         ");
+        
 
-        while($post_manual=$result_post->fetch_assoc()){
+        $post_manual=$result_post->fetch_assoc();
+        $userId=$post_manual['autor_public'];
+
+        $resultUserPost= $mysql -> query(" SELECT * FROM `admins`
+        WHERE `id` = '$userId'
+        ");
+
+        $postUser=$resultUserPost->fetch_assoc();
     ?>
     <div class="post-block">
         <div class="post">
@@ -47,12 +55,12 @@ session_start();
                 <p class="post-content-text"><?php echo $post_manual['description'] ?></p>
                 <div class="content-redactor">
                     <h6 class="post-content-h6">Опубликованно:</h6>
-                    <h6 class="post-content-h6"><?php echo $post_manual['autor_public'] ?></h6>
+                    <a href="<?php echo "profile.php?idProfile=" . $_SESSION["user"]["id"]."&window=1&num_rows=2"; ?>"><h6 class="post-content-h6"><?php echo  $postUser['name']?></h6></a>
                 </div>
             </div>
             <div class="post-button-menu">
                 <?PHP
-                    if($_SESSION["user"]["rule"]=="admin"){
+                    if(($_SESSION["user"]["rule"]=="admin" && $_SESSION["user"]["id"]==$postUser['id']) || $_SESSION["user"]["rule"]=="superadmin"){
                 ?>
                 <form action="update-form.php" method="post">
                     <input type="text" style="display:none" name="post-ID" value="<?php echo $post_manual['id']?>">
@@ -61,16 +69,12 @@ session_start();
                 <?PHP
                     };
                 ?>
-                <!-- <form action="view.php" method="post">
-                <input type="text" style="display:none" name="post-ID" value="<?php echo $post_manual['id']?>">
-                <button class="post-button-menu-items"><img class="icon-post-menu-button" src="img/svg/eye.svg" alt="">Просмотреть</button>
-                </form> -->
                 
                 <input type="text" style="display:none" name="post-ID" value="<?php echo $post_manual['id']?>">
                 
-                <button onclick="location.href='<?php echo$post_manual['file'] ?>';" class="post-button-menu-items"><img class="icon-post-menu-button" src="img/svg/download.svg" alt="">Скачать</button>
+                <button onclick="location.href='<?php echo $post_manual['file'] ?>';" class="post-button-menu-items"><img class="icon-post-menu-button" src="img/svg/download.svg" alt="">Скачать</button>
                 <?PHP
-                    if($_SESSION["user"]["rule"]=="admin"){
+                    if(($_SESSION["user"]["rule"]=="admin" && $_SESSION["user"]["id"]==$postUser['id']) || $_SESSION["user"]["rule"]=="superadmin"){
                 ?>
                 <form action="check-delete.php" method="post">
                 <input type="text" style="display:none" name="post-ID" value="<?php echo $post_manual['id']?>">
@@ -84,7 +88,6 @@ session_start();
     </div>
 
     <?php
-        }
     require "blocks/footer.php";
     $mysql -> close();
     ?>

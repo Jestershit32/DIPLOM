@@ -56,7 +56,6 @@ if($list==''){
                     if($result->num_rows==0){
                         echo  "<h3 class='no-items'>Результатов не найдено</h3>";
                     }
-                    $item=0;
                     
                     while($post = $result->fetch_assoc()) {
                     ?>
@@ -70,12 +69,6 @@ if($list==''){
                         <div class="autor-content">
                             <h4 class="post-content-h4"><?php echo $post["autor"]; ?></h4>
                         </div>
-                        <!-- <form action="post.php" method="post">
-                            <input type="text" style="display:none" name="post_manual" value="<?php echo $post['id']?>">
-                            <button class="search-content-block-item-link-details" type="submit" >
-                                Подробнее
-                        </button>
-                        </form> -->
                         <a class="search-content-block-item-link-details" href="post.php?id=<?php echo $post['id']?>">Подробнее</a>
                     </div>
                     

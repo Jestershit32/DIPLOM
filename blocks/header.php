@@ -6,6 +6,14 @@
     </a>
             <div class="header-menu">
                 <div class="profile">
+                    <a href="<?php 
+                    if($_SESSION["user"]["id"])
+                    {
+                        echo "profile.php?idProfile=" . $_SESSION["user"]["id"]."&window=1&num_rows=2";
+                    }else{
+                        echo "/login-window.php";
+                    }
+                    ?>">
                 <img class="avatar-img" src="<?php
                 if($_SESSION["user"]["name"]){
                     echo $_SESSION["user"]["avatar"];
@@ -14,6 +22,7 @@
                 }
                 
                 ?>" alt="аватар">
+                </a>
                 <div class="name-info">
                     <div class="profile-name">
                     <?PHP
@@ -44,7 +53,7 @@
                 </div>
                 <ul class="func-menu">
                 <?PHP
-                    if($_SESSION["user"]["rule"]=="admin"){
+                    if($_SESSION["user"]["rule"]=="admin"|| $_SESSION["user"]["rule"]=="superadmin"){
                 ?>
                     <li class="func-item">
                         <a href="add-form.php" class="func-link">
@@ -52,6 +61,7 @@
                         <h4 class="item-name">Добавить методичку</h4>
                         </a>
                     </li>
+                    
                 <?PHP
                     }
                 ?>
@@ -60,6 +70,12 @@
                         <img class="func-ico" src="img/svg/search.svg" alt="Поиск методички" class="func-icon">
                         <h4 class="item-name">Поиск методички</h4>
                     </a>
+                    </li>
+                    <li class="func-item">
+                        <a href="admin-list.php?idProfile=1&window=1&num_rows=2&searchProfile=" class="func-link">
+                        <img class="func-ico" src="img/svg/users.svg" alt="Добавить методичку" class="func-icon">
+                        <h4 class="item-name">Поиск учасников</h4>
+                        </a>
                     </li>
                 </ul>
             </div>

@@ -28,7 +28,7 @@ require 'blocks/protection.php';
     $uploadfile =  $uploaddir . basename($_FILES['file']['name']);
 
     // это временная переменная
-    $autor_public=$_SESSION["user"]["name"];
+    $autor_public=$_SESSION["user"]["id"];
     $warning=["Внимание","Вы добавили запись под названием ",false];
     if(mb_strlen($aut_name) <5 || mb_strlen($aut_name)>90){
         $warning=["Возникла ошибка","Недопустимая длина Имени автора ",true];

@@ -18,25 +18,26 @@ $list=$_GET["window"]*10;
     $group_num=filter_var(trim($_GET['group_num']),FILTER_SANITIZE_STRING);
     $doc_num=filter_var(trim($_GET['doc_num']),FILTER_SANITIZE_STRING);
     $year_create=$_GET['year_create'];
-    $autor=$_GET['autor'];
 
+    $autor=$_GET['autor'];
     require ("connect.php");
     $list_UP=$list-10;
     $result= $mysql -> query(" SELECT * FROM `manuals`
-    WHERE `name` = '$doc_name' 
-    OR `number_gr` = '$group_num' 
-    OR `number_doc` ='$doc_num' 
-    OR  `age` ='$year_create'
-    OR  `autor` ='$autor'
+    WHERE `name` LIKE '%$doc_name%' 
+    AND `number_gr` LIKE '%$group_num%' 
+    AND `number_doc` LIKE'%$doc_num%' 
+    AND  `age`  LIKE'%$year_create%'
+    AND  `autor` LIKE '%$autor%'
+    ORDER BY `name`
     LIMIT $list_UP, 10
     ");
     $result1= $mysql -> query(" SELECT * FROM `manuals`
-    WHERE `name` = '$doc_name' 
-    OR `number_gr` = '$group_num' 
-    OR `number_doc` ='$doc_num' 
-    OR  `age` ='$year_create'
-    OR  `autor` ='$autor'
-    
+    WHERE `name` LIKE '%$doc_name%' 
+    AND `number_gr` LIKE '%$group_num%' 
+    AND `number_doc` LIKE'%$doc_num%' 
+    AND  `age` LIKE '%$year_create%'
+    AND  `autor` LIKE '%$autor%'
+    ORDER BY `name`
     ");
     $num_rows=ceil(($result1->num_rows)/10);
 
@@ -63,7 +64,6 @@ $list=$_GET["window"]*10;
             }
                 
             ?>
-                    <!-- <button class="search-content-nav-item"><a href="" class="search-content-nav-item-link">1</a></button> -->
                 </div>
                 <div class="search-content-block">
                     <!--блок новости -->
@@ -84,12 +84,6 @@ $list=$_GET["window"]*10;
                         <div class="autor-content">
                             <h4 class="post-content-h4"><?php echo $post["autor"]; ?></h4>
                         </div>
-                        <!-- <form action="post.php" method="post">
-                            <input type="text" style="display:none" name="post_manual" value="<?php echo $post['id']?>">
-                            <button class="search-content-block-item-link-details" type="submit" >
-                                Подробнее
-                        </button>
-                        </form> -->
                         <a class="search-content-block-item-link-details" href="post.php?id=<?php echo $post['id']?>">Подробнее</a>
                     </div>
                     
@@ -115,7 +109,6 @@ $list=$_GET["window"]*10;
             }
                 
             ?>
-                    <!-- <button class="search-content-nav-item"><a href="" class="search-content-nav-item-link">1</a></button> -->
                 </div>
         </div>
     </div>

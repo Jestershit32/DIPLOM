@@ -29,50 +29,33 @@ require 'blocks/protection.php';
 
                 <div class="form-grid-field field-1">
                     <h4 class="field-name">Автор</h4>
-                    <button class="butten-reset">
-                        <img src="img/svg/close.svg" alt="" class="reset-svg">
-                    </button>
                     <input class="field-text" name="aut_name" value="<?php echo $post_ID_items['autor']?>" type="text" placeholder="Введите имя автора">
                 </div>
                 <div class="form-grid-field field-2">
                     <h4 class="field-name">Год создания</h4>
-                    <button class="butten-reset">
-                        <img src="img/svg/close.svg" alt="" class="reset-svg">
-                    </button>
                     <input class="field-text" name="year_create" value="<?php echo $post_ID_items['age']?>" type="date" placeholder="Год создания методички">
                 </div>
                 <div class="form-grid-field field-3">
                     <h4 class="field-name">Название</h4>
-                    <button class="butten-reset">
-                        <img src="img/svg/close.svg" alt="" class="reset-svg">
-                    </button>
                     <input class="field-text" name="doc_name" value="<?php echo $post_ID_items['name']?>" type="text" placeholder="Название методички">
                 </div>
                 <div class="form-grid-field field-4">
                     <h4 class="field-name">Номер группы</h4>
-                    <button class="butten-reset">
-                        <img src="img/svg/close.svg" alt="" class="reset-svg">
-                    </button>
                     <input class="field-text" name="group_num" value="<?php echo $post_ID_items['number_gr']?>" type="text" placeholder="Номер группы">
                 </div>
                 <div class="form-grid-field field-5">
                     <h4 class="field-name">Номер методической документации</h4>
-                    <button class="butten-reset">
-                        <img src="img/svg/close.svg" alt="" class="reset-svg">
-                    </button>
                     <input class="field-text" name="doc_num" value="<?php echo $post_ID_items['number_doc']?>" type="text" placeholder="Введите номер методички">
                 </div>
                 <div class="form-grid-area field-6">
                     <h4 class="field-name">Описание</h4>
-                    <button class="butten-reset">
-                        <img src="img/svg/close.svg" alt="" class="reset-svg">
-                    </button>
                     <textarea name="description" id="" cols="30" rows="10" class="field-text-area" placeholder="Введите описание для методички"><?php echo $post_ID_items['description']?></textarea>
                     
                 </div>
                 <div class="my-button field-7">
                     <h4 class="field-7-string">Вставьте фаил (Обязательно)</h4>
                     <input class="field-file" name="file" type="file" >
+                    <input style="display:none;" name="autor_public" value="<?php echo $post_ID_items['autor_public']?>" type="text" >
                 </div>
                 <button type="reset" class="my-button" >Сброс</button>
                 <button type="submit" class="my-button">Изменить</button>
