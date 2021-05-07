@@ -8,11 +8,10 @@ session_start();
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/style.css">
-    <title>Главная</title>
+    <title>Форма регистрации</title>
 </head>
-<body>
-<?PHP
-if(!$_SESSION["user_name"]){
+<body><?php
+require 'blocks/header.php';
 ?>
 <div class="login-content">
         
@@ -46,7 +45,6 @@ if(!$_SESSION["user_name"]){
         </div>
         
 <?PHP
-};
 require 'blocks/footer.php';
 ?>
 </body>

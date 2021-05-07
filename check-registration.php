@@ -4,18 +4,21 @@ require ("connect.php");
 $login=filter_var(trim($_POST['login']));
 $password=filter_var(trim($_POST['password']));
 $name=$_POST['name'];
+if($_FILES['avatar']['name']!=""){
 $avatar = 'avatars/'.date("d.m.y - H.i.s").'-'.basename($_FILES['avatar']['name']);
+} else{
+    $avatar="";
+}
 $rule='user';
-// print_r($login);
-// echo("<br>");
-// print_r($password);
-// echo("<br>");
-// print_r($name);
-// echo("<br>");
-// print_r($avatar);
-// echo("<br>");
-if ($name != '' && $login != '' && $password != '' && $_FILES != '') {
-
+if ($name != '' && $login != '' && $password != '') {
+    if(mb_strlen($name) >25){
+        $_SESSION['message'] = 'Имя превышает 25 символов';
+        header ('Location: registration.php');
+    }
+    if(mb_strlen($login) >25){
+        $_SESSION['message'] = 'Логин превышает 25 символов';
+        header ('Location: registration.php');
+    }
     $check_admin = mysqli_query($mysql, "SELECT * FROM `admins`");
     while ($users = mysqli_fetch_assoc($check_admin)) {
         if ($users['login'] === $login) {
@@ -28,12 +31,8 @@ if ($name != '' && $login != '' && $password != '' && $_FILES != '') {
     
 
 
-    if (!move_uploaded_file($_FILES['avatar']['tmp_name'], $avatar)) {
-        $_SESSION['message'] = 'Ошибка при загрузке файла';
-        header ('Location: registration.php');
-        die();
-    }
-
+    move_uploaded_file($_FILES['avatar']['tmp_name'], $avatar);
+    
     $mysql -> query("INSERT INTO `admins` (`name`, `login`, `pass`, `avatar`,`rule`) VALUES ('$name', '$login', '$password', '$avatar','$rule')");
     
 
@@ -43,6 +42,4 @@ if ($name != '' && $login != '' && $password != '' && $_FILES != '') {
     $_SESSION['message'] = 'Заполните все поля!';
     header ('Location: registration.php');
 }
-
-
 ?>

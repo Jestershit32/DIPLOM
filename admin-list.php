@@ -47,7 +47,6 @@ $list=$_GET["window"]*10;
                 }
                 }
             }
-                
             ?>
                 </div>
             <div class="block-search-profiles-list content">
@@ -55,7 +54,14 @@ $list=$_GET["window"]*10;
                 while($profile = $result->fetch_assoc()){
                 ?>
                 <div class="profile-card">
-                <a href="profile.php?idProfile=<?php echo $profile['id']?>&window=1&num_rows=2"><img src="/avatars/GOST.jpg" alt="" class="profile-card-img"></a>
+                <a href="profile.php?idProfile=<?php echo $profile['id']?>&window=1&num_rows=2"><img src="<?PHP
+                if($profile['avatar']!=""){
+                    echo $profile['avatar'];
+                }else{
+                    echo "avatars\GOST.jpg";
+                }
+                ?>
+                " alt="" class="profile-card-img"></a>
                     <div class="profile-card-info">
                     <h6 class="post-content-h6 ">Имя</h6>
                     <h2 class="post-content-h2"><?php echo $profile['name'] ?></h2>

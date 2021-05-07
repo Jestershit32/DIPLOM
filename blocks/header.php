@@ -16,7 +16,11 @@
                     ?>">
                 <img class="avatar-img" src="<?php
                 if($_SESSION["user"]["name"]){
-                    echo $_SESSION["user"]["avatar"];
+                    if($_SESSION["user"]["avatar"]==""){
+                        echo "avatars\GOST.jpg";
+                    }else{
+                        echo $_SESSION["user"]["avatar"];
+                    }
                 }else{
                     echo "avatars\GOST.jpg";
                 }

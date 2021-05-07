@@ -13,7 +13,6 @@ session_start();
 <body>
 <?PHP
 require 'blocks/header.php';
-if(!$_SESSION["user"]["name"]){
 ?>
 <div class="login-content">
         
@@ -32,9 +31,13 @@ if(!$_SESSION["user"]["name"]){
             <button class="my-button" type="submit">Вход</button>
         </form>
         <a href="registration.php" class="link-glav">Регистрация</a>
+        <h2><?PHP 
+            echo $_SESSION["message"];
+            unset($_SESSION["message"]);
+        ?></h2>
         </div>
+        
 <?PHP
-};
 require 'blocks/footer.php';
 ?>
 </body>

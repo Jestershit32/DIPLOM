@@ -32,7 +32,7 @@ $update_ID=trim($_POST['post-ID']);
                     <input type="text" style="display:none" name="post-ID" value="<?php echo $update_ID ?>">
                     <button type="submite" class="delete-button-post post-button-menu-items button-warning-menu-item"><img class="icon-post-menu-button" src="img/svg/trash.svg" alt="">ДА, удалить</button>
                     </form>
-                <button onclick="history.go(-1); return false;"  class="post-button-menu-items button-warning-menu-item"><img class="icon-post-menu-button" src="img/svg/update.svg" alt="">Нет вернуться</button>
+                <button onclick="history.go(-2); return false;"  class="post-button-menu-items button-warning-menu-item"><img class="icon-post-menu-button" src="img/svg/update.svg" alt="">Нет вернуться</button>
             </div>
         </div>
     </div>

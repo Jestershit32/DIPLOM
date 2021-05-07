@@ -8,6 +8,7 @@ if($list==''){
 <!DOCTYPE html>
 <html lang="ru">
 <head>
+    <link rel="shortcut icon" href="/img/site-ico.jpg" type="image/x-icon">
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -24,7 +25,7 @@ if($list==''){
     $result= $mysql -> query(" SELECT * FROM `manuals` LIMIT $list_UP, 10");
     $result1=$mysql -> query(" SELECT * FROM `manuals`");
     $num_rows=ceil(($result1->num_rows)/10);
-    // print_r($num_rows);
+    if($result->num_rows!=0){
     ?>
     <div class="search-block">
             <div class="search-content">
@@ -34,7 +35,6 @@ if($list==''){
                 if($i>=1){
                 ?>
             <button class="search-content-nav-item"><a href="index.php?window=<?php echo $i ."&num_rows=".$num_rows?>" class="search-content-nav-item-link <?php if($i==$list/10) echo " nav-item-activ" ?>"><?php echo $i ?></a></button>
-            <!-- <button class="search-content-nav-item"><a href="index.php?window=<?php echo $i ."&num_rows=".$num_rows?>" class="search-content-nav-item-link"><?php echo $i ?></a></button> -->
                 <?php
                 if($i==($list/10)+3||$i==($list/10)+5){
                 ?> 
@@ -46,17 +46,11 @@ if($list==''){
             }
                 
             ?>
-                    <!-- <button class="search-content-nav-item"><a href="" class="search-content-nav-item-link">1</a></button> -->
                 </div>
     <div class="search-content-block">
     
                     <!--блок новости -->
-                    <?php 
-                    
-                    if($result->num_rows==0){
-                        echo  "<h3 class='no-items'>Результатов не найдено</h3>";
-                    }
-                    
+                    <?php
                     while($post = $result->fetch_assoc()) {
                     ?>
                     <div class="search-content-block-item ">
@@ -92,7 +86,7 @@ if($list==''){
                 }
                 }
             }
-                
+        } 
             ?>
                     <!-- <button class="search-content-nav-item"><a href="" class="search-content-nav-item-link">1</a></button> -->
                 </div>

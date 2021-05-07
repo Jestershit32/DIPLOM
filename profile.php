@@ -1,15 +1,19 @@
 <?PHP 
 session_start();
+if($_GET["idProfile"]==""){
+    header("Location: index.php");
+}
 $list=$_GET["window"]*10;
 ?>
 <!DOCTYPE html>
 <html lang="ru">
 <head>
+    <link rel="shortcut icon" href="/img/site-ico.jpg" type="image/x-icon">
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/style.css">
-    <title>Профиль </title>
+    <title>Профиль</title>
 </head>
 <body>
             <?php 
@@ -25,12 +29,19 @@ $list=$_GET["window"]*10;
     $profile=$resultProfile->fetch_assoc();
     $profileName=$profile["id"];
     $result= $mysql -> query(" SELECT * FROM `manuals` WHERE `autor_public` = '$profileName' LIMIT $list_UP, 10");
-    $result1=$mysql -> query(" SELECT * FROM  `manuals` WHERE `autor_public` = '$profileName' ");
+    $result1=$mysql -> query(" SELECT * FROM `manuals` WHERE `autor_public` = '$profileName' ");
     $num_rows=ceil(($result1->num_rows)/10);
             ?>
             
             <div class="profile-block content">
-                <img src="avatars/GOST.jpg" alt="" class="profile-block-avatar">
+                <img src="<?php
+                if($profile['avatar']!=""){
+                    echo $profile['avatar'];
+                }else{
+                    echo "avatars\GOST.jpg";
+                }
+                
+                ?>" alt="" class="profile-block-avatar">
                 <div class="profile-block-info">
                     <h6 class="post-content-h6 profile-block-text">Имя</h6>
                     <h2 class="post-content-h2 profile-block-text"><?php echo $profile['name'] ?></h2>
@@ -38,14 +49,14 @@ $list=$_GET["window"]*10;
                     <h2 class="post-content-h2 profile-block-text"><?php echo $profile['login'] ?></h2>
                     <h6 class="post-content-h6 profile-block-text">Права</h6>
                     <h2 class="post-content-h2 profile-block-text"><?php echo $profile['rule'] ?></h2>
-                    <?php if($profile['id']===$_SESSION["user"]["id"]){?>
-                    <a href="" class="button-profile-function-link">
+                    <?php if($profile['id']===$_SESSION["user"]["id"]||$_SESSION["user"]["rule"]=="superadmin"){?>
+                    <a href="update-profile-form.php?idProfile=<?php echo $profile['id'] ?>" class="button-profile-function-link">
                         <div class="button-profile-function">
                             <img src="img/svg/update.svg" alt="" class="profile-funcktion-icon">
                             Изменение данных
                         </div>
                     </a>
-                    <a href="" class="button-profile-function-link">
+                    <a href="window-delete-profile.php?idProfile=<?php echo $profile['id'] ?>" class="button-profile-function-link">
                         <div class="button-profile-function">
                             <img src="img/svg/trash.svg" alt="" class="profile-funcktion-icon">
                             Удаление профиля
@@ -53,9 +64,13 @@ $list=$_GET["window"]*10;
                     </a>
                     <?PHP
                 }
+                
                 ?>
                 </div>
             </div>
+            <?PHP
+            if($result->num_rows!=0){
+            ?>
             <div class="search-block">
             <div class="search-content">
     <div class="search-content-nav">
@@ -81,11 +96,6 @@ $list=$_GET["window"]*10;
     
                     <!--блок новости -->
                     <?php 
-                    
-                    if($result->num_rows==0){
-                        
-                        echo  "<h3 class='no-items'>Результатов не найдено</h3>";
-                    }
                     while($post = $result->fetch_assoc()) {
                     ?>
                     <div class="search-content-block-item ">
@@ -125,6 +135,9 @@ $list=$_GET["window"]*10;
                 </div>
                 </div>
                 </div>
+                <?PHP 
+                }
+                ?>
 </div>
 </body>
 </html>

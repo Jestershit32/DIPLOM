@@ -518,6 +518,7 @@ body{
 .post-content-h2{
   margin: 0px;
   font-size: 30px;
+  word-wrap:break-word;
 }
 .autor-content{
   margin-bottom: 30px;
