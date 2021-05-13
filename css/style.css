@@ -768,7 +768,12 @@ margin: 0px 50px 0px 20px;
   width: 100%;
   height: 400px;
   object-fit: cover;
-  background-position: center;
+  background-color: #494A77;
+  border-radius: 32px 32px 0px 0px;
+}
+.profile-card-link:hover .profile-card-img{
+  transition-duration: 0.5s;
+  padding: 20px;
 }
 .profile-card-info{
   position: absolute;

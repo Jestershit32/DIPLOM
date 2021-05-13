@@ -48,9 +48,14 @@ require 'blocks/protection.php';
     elseif (mb_strlen($_FILES['file']['tmp_name']) <1){
         $warning=["Возникла ошибка","Отсутствует файл для добавления методички ",true];
     }
-    elseif (mb_strlen($_FILES['file']['size']) >(40 * 1024)){
+    elseif ($_FILES['file']['size'] >(40 * 1024)){
         $warning=["Возникла ошибка","Слишком большей файл  ",true];
     }
+    elseif($_FILES['file']['type']!="application/pdf" && $_FILES['file']['type']!="application/msword" && $_FILES['file']['type']!="application/vnd.openxmlformats-officedocument.wordprocessingml.document"){
+        print_r("<pre>". $_FILES['file']['type'] . "</pre>");
+        $warning=["Возникла ошибка","Неподходящий тип файлов  ",true];
+    }
+    
 
     require ("connect.php");
     if($warning[2]!=true){
@@ -58,9 +63,9 @@ require 'blocks/protection.php';
     VALUES('$aut_name', '$year_create', '$doc_name', '$group_num', '$description[0]', '$uploadfile', '$doc_num', '$autor_public') ");
 
         if (move_uploaded_file($_FILES['file']['tmp_name'], $uploadfile)) {
-            // echo "Файл корректен и был успешно загружен.\n"; // позже допишу отображения окнами.
+
         } else {
-            // echo "Возможная атака с помощью файловой загрузки!\n";
+
         }
     }
 ?>
@@ -84,7 +89,7 @@ require 'blocks/protection.php';
                     <button style="<?PHP if($warning[2]){
                         echo "display:none;";}; ?>" onclick="location.href='index.php';" class="post-button-menu-items button-warning-menu-item"><img class="icon-post-menu-button" src="img/svg/trash.svg" alt="">Ок</button>
                 
-                <button onclick="history.go(-2); return false;" class="post-button-menu-items button-warning-menu-item"><img class="icon-post-menu-button" src="img/svg/update.svg" alt="">Вернуться</button>
+                <button onclick="history.go(-1); return false;" class="post-button-menu-items button-warning-menu-item"><img class="icon-post-menu-button" src="img/svg/update.svg" alt="">Вернуться</button>
             </div>
         </div>
     </div>

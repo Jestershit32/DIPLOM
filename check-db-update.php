@@ -5,10 +5,12 @@ require 'blocks/protection.php';
 <!DOCTYPE html>
 <html lang="ru">
 <head>
+<link rel="shortcut icon" href="/img/site-ico.jpg" type="image/x-icon">
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/style.css">
+    <title>Внимание</title>
 </head>
 <body>
     <div class="wrapper">
@@ -50,6 +52,13 @@ if(mb_strlen($aut_name) <5 || mb_strlen($aut_name)>90){
 elseif(mb_strlen($description[0]) <3 || mb_strlen($description[0])>400){
     $warning=["Возникла ошибка","Недопустимая длина Описания",true];
 }
+elseif ($_FILES['file']['size'] >(40 * 1024)){
+    $warning=["Возникла ошибка","Слишком большей файл  ",true];
+}
+elseif($_FILES['file']['type']!="application/pdf" && $_FILES['file']['type']!="application/msword" && $_FILES['file']['type']!="application/vnd.openxmlformats-officedocument.wordprocessingml.document"){
+    print_r("<pre>". $_FILES['file']['type'] . "</pre>");
+    $warning=["Возникла ошибка","Неподходящий тип файлов  ",true];
+}
 
 elseif(mb_strlen($_FILES['file']['tmp_name']) <1){
     $uploadfile=$post_id['file'];
@@ -69,7 +78,11 @@ SET `autor`='$aut_name',
     WHERE `id`='$update_ID'
 ");
         if (move_uploaded_file($_FILES['file']['tmp_name'], $uploadfile)) {
-            unlink($post_id['file']);
+            if(file_exists($post_id['file'])){
+                unlink($post_id['file']);
+                }
+            
+
         } else {
         }
 }

@@ -5,6 +5,7 @@ $list=$_GET["window"]*10;
 <!DOCTYPE html>
 <html lang="ru">
 <head>
+<link rel="shortcut icon" href="/img/site-ico.jpg" type="image/x-icon">
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -32,6 +33,9 @@ $list=$_GET["window"]*10;
                     <button class="profile-search-form-submite" type="submit"><img src="img/svg/search.svg" alt=""></button>
                 </form>
             </div>
+            <?PHP
+            if($num_rows>0){
+            ?>
             <div class="search-content-nav">
             <?php
             for($i=($list/10)-2;$i<=$num_rows;$i++){
@@ -54,7 +58,7 @@ $list=$_GET["window"]*10;
                 while($profile = $result->fetch_assoc()){
                 ?>
                 <div class="profile-card">
-                <a href="profile.php?idProfile=<?php echo $profile['id']?>&window=1&num_rows=2"><img src="<?PHP
+                <a class="profile-card-link" href="profile.php?idProfile=<?php echo $profile['id']?>&window=1&num_rows=2"><img src="<?PHP
                 if($profile['avatar']!=""){
                     echo $profile['avatar'];
                 }else{
@@ -104,5 +108,11 @@ $list=$_GET["window"]*10;
                 
             ?>
                 </div>
+                <?PHP
+            }
+            else{
+                echo '<h1 class="list-search-name">Результатов не найдено</h1>';
+            }
+                ?>
 </body>
 </html>

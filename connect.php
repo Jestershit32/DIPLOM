@@ -4,5 +4,4 @@ $username = "root";
 $pass = "root";
 $db_name = "smdo_db";
 $mysql = new mysqli($host, $username, $pass, $db_name);
-
 ?>

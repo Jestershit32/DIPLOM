@@ -65,7 +65,7 @@ require 'blocks/protection.php';
                     
                 </div>
                 <div class="my-button field-7">
-                    <h4 class="field-7-string">Вставьте фаил</h4>
+                    <h4 class="field-7-string">Вставьте фаил формата docx doc либо pdf </h4>
                     <input class="field-file" name="file" type="file" >
                 </div>
                 <button type="reset" class="my-button" >Сброс</button>
