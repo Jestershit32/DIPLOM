@@ -1,5 +1,5 @@
 <?PHP
-session_start();
+    session_start();
     $login=filter_var(trim($_POST['login']));
     $password=filter_var(trim($_POST['password']));
     require "connect.php";
@@ -21,8 +21,6 @@ session_start();
         'rule' => $user['rule'],
         'avatar' => $user['avatar']
     ];
-    // $_SESSION["rule"]=$user['rule'];
-    // $_SESSION["user_name"]=$user['name'];
     header("Location: index.php");
 
 ?>

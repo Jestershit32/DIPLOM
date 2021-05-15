@@ -15,7 +15,6 @@ require 'blocks/protection.php';
 <body>
     <div class="wrapper">
 <?PHP 
-// require 'blocks/header.php';
 require ("connect.php");
 $update_ID=trim($_POST['post-ID']);
 
